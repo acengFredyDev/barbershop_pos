@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -101,6 +102,12 @@ export default function Login() {
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
+              <div className="text-center text-sm">
+                Belum punya akun?{' '}
+                <Link href="/signup" className="text-blue-600 hover:underline">
+                  Daftar
+                </Link>
+              </div>
             </div>
           </form>
         </CardContent>
