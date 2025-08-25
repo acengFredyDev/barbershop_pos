@@ -36,24 +36,31 @@ export default function Login() {
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
-          .single();
+          .maybeSingle();
         
-        if (profile) {
-          switch (profile.role) {
-            case 'owner':
-              router.push('/dashboard');
-              break;
-            case 'cashier':
-              router.push('/pos');
-              break;
-            case 'barber':
-              router.push('/barber');
-              break;
-            default:
-              router.push('/');
-          }
-        } else {
-          router.push('/');
+        if (!profile) {
+          // profil belum terbentuk – buat fallback agar user tetap bisa akses
+          await supabase.from('profiles').insert({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.user_metadata?.name || 'Unknown',
+            role: 'barber'
+          });
+          router.push('/barber');
+          return;
+        }
+        switch (profile.role) {
+          case 'owner':
+            router.push('/dashboard');
+            break;
+          case 'cashier':
+            router.push('/pos');
+            break;
+          case 'barber':
+            router.push('/barber');
+            break;
+          default:
+            router.push('/');
         }
       }
     } catch (error: any) {
