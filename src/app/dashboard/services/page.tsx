@@ -98,8 +98,8 @@ export default function ServicesPage() {
     const serviceData = {
       name: formData.name,
       price: parseInt(formData.price),
-      description: formData.description || null,
-      duration: formData.duration ? parseInt(formData.duration) : null
+      description: formData.description || undefined,
+      duration: formData.duration ? parseInt(formData.duration) : undefined
     };
 
     if (isEditing && currentService) {

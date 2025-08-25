@@ -447,7 +447,7 @@ export default function BarberPage() {
                           <p className="whitespace-pre-wrap">{note.note}</p>
                         </div>
                         <div className="mt-2 flex justify-between items-center text-sm text-gray-500">
-                          <span>By: {note.barber?.name}</span>
+                          <span>By: {note.barber_id}</span>
                           <span>{formatDate(note.created_at)}</span>
                         </div>
                       </div>

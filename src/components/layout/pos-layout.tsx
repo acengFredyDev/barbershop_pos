@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { User } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 interface PosLayoutProps {
   children: React.ReactNode;

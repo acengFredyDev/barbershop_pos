@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Scissors, Mail, Phone, MapPin } from 'lucide-react';
-import { toast } from 'sonner';
+import { toast } from '@/components/ui/use-toast';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -33,7 +33,10 @@ export default function ContactPage() {
     
     // Simulate form submission
     setTimeout(() => {
-      toast.success('Message sent successfully! We will get back to you soon.');
+      toast({
+        title: 'Success',
+        description: 'Message sent successfully! We will get back to you soon.'
+      });
       setFormData({
         name: '',
         email: '',

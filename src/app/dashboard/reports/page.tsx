@@ -121,19 +121,21 @@ export default function ReportsPage() {
     const serviceMap = new Map<string, ServiceData>();
     
     transactionServices.forEach(ts => {
-      const serviceName = ts.services.name;
-      const servicePrice = ts.services.price;
-      const existing = serviceMap.get(serviceName);
-      
-      if (existing) {
-        existing.count += 1;
-        existing.total += servicePrice;
-      } else {
-        serviceMap.set(serviceName, {
-          name: serviceName,
-          count: 1,
-          total: servicePrice
-        });
+      if (ts.services && ts.services[0]) {
+        const serviceName = ts.services[0].name;
+        const servicePrice = ts.services[0].price;
+        const existing = serviceMap.get(serviceName);
+        
+        if (existing) {
+          existing.count += 1;
+          existing.total += servicePrice;
+        } else {
+          serviceMap.set(serviceName, {
+            name: serviceName,
+            count: 1,
+            total: servicePrice
+          });
+        }
       }
     });
     
@@ -163,9 +165,9 @@ export default function ReportsPage() {
     const barberMap = new Map<string, BarberData>();
     
     barberTransactions.forEach(bt => {
-      if (!bt.barber_id || !bt.barber) return;
+      if (!bt.barber_id || !bt.barber || !bt.barber[0]) return;
       
-      const barberName = bt.barber.name;
+      const barberName = bt.barber[0].name;
       const existing = barberMap.get(barberName);
       
       if (existing) {

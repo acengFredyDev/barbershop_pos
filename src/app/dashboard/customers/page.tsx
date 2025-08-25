@@ -130,7 +130,13 @@ export default function CustomersPage() {
 
       // Update local state
       setCustomers(customers.map(customer => 
-        customer.id === currentCustomer.id ? { ...customer, ...customerData } : customer
+        customer.id === currentCustomer.id ? { 
+          ...customer, 
+          ...customerData,
+          phone: customerData.phone || undefined,
+          email: customerData.email || undefined,
+          notes: customerData.notes || undefined 
+        } : customer
       ));
 
       toast({
@@ -357,7 +363,7 @@ export default function CustomersPage() {
                   <div key={note.id} className="p-3 border rounded-lg">
                     <p className="whitespace-pre-wrap">{note.note}</p>
                     <div className="mt-2 flex justify-between items-center text-sm text-gray-500">
-                      <span>By: {note.barber?.name}</span>
+                      <span>By: {note.barber_id}</span>
                       <span>{formatDate(note.created_at)}</span>
                     </div>
                   </div>

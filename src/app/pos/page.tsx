@@ -534,13 +534,13 @@ export default function PosPage() {
                 <span>Subtotal</span>
                 <span>{formatCurrency(calculateTotal())}</span>
               </div>
-              {tipAmount > 0 && (
-                <div className="flex justify-between items-center mt-2">
+              {currentTransaction && currentTransaction.tip_amount !== undefined && currentTransaction.tip_amount > 0 && (
+                <div className="flex justify-between">
                   <span>Tip</span>
-                  <span>{formatCurrency(tipAmount)}</span>
+                  <span>{formatCurrency(currentTransaction.tip_amount)}</span>
                 </div>
               )}
-              <div className="flex justify-between items-center mt-4 text-lg font-bold">
+              <div className="flex justify-between font-bold mt-2">
                 <span>Total</span>
                 <span>{formatCurrency(calculateFinalAmount())}</span>
               </div>
@@ -586,7 +586,7 @@ export default function PosPage() {
                     <span>Subtotal</span>
                     <span>{formatCurrency(calculateTotal())}</span>
                   </div>
-                  {currentTransaction.tip_amount > 0 && (
+                  {currentTransaction && currentTransaction.tip_amount !== undefined && currentTransaction.tip_amount > 0 && (
                     <div className="flex justify-between">
                       <span>Tip</span>
                       <span>{formatCurrency(currentTransaction.tip_amount)}</span>
