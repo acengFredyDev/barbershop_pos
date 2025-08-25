@@ -26,8 +26,15 @@ export default function Signup() {
     setLoading(true);
     setError(null);
     setInfo(null);
-
+  
     try {
+      if (!email.includes('@')) {
+        throw new Error('Email tidak valid');
+      }
+      if (password.length < 6) {
+        throw new Error('Password harus minimal 6 karakter');
+      }
+  
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -38,14 +45,12 @@ export default function Signup() {
           },
         },
       });
-
+  
       if (error) throw error;
-
-      // Jika verifikasi email diaktifkan di Supabase, user belum punya session dan harus verifikasi email.
+  
       const { data: sessionData } = await supabase.auth.getSession();
-
+  
       if (sessionData?.session) {
-        // Session aktif -> redirect sesuai role yang dipilih
         switch (role) {
           case 'cashier':
             router.push('/pos');
@@ -57,7 +62,6 @@ export default function Signup() {
             router.push('/');
         }
       } else {
-        // Tidak ada session -> kemungkinan verifikasi email dibutuhkan
         setInfo('Pendaftaran berhasil. Silakan cek email Anda untuk verifikasi sebelum login.');
       }
     } catch (err: any) {

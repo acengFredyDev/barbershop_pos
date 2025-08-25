@@ -21,34 +21,40 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+  
     try {
+      if (!email.includes('@')) {
+        throw new Error('Email tidak valid');
+      }
+      if (password.length < 6) {
+        throw new Error('Password harus minimal 6 karakter');
+      }
+  
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-
+  
       if (error) throw error;
-
+  
       if (data.user) {
-        // Check user role and redirect accordingly
         const { data: profile } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
           .maybeSingle();
-        
+  
         if (!profile) {
-          // fallback jika profile belum ada (trigger DB gagal)
           await supabase.from('profiles').insert({
             id: data.user.id,
             email: data.user.email,
             name: data.user.user_metadata?.name || 'Unknown',
-            role: 'barber'
+            role: 'barber',
           });
           router.push('/barber');
           return;
         }
+  
         switch (profile.role) {
           case 'owner':
             router.push('/dashboard');
