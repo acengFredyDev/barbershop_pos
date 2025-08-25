@@ -39,7 +39,7 @@ export default function Login() {
           .maybeSingle();
         
         if (!profile) {
-          // profil belum terbentuk – buat fallback agar user tetap bisa akses
+          // fallback jika profile belum ada (trigger DB gagal)
           await supabase.from('profiles').insert({
             id: data.user.id,
             email: data.user.email,

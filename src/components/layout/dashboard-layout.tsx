@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         .from('profiles')
         .select('*')
         .eq('id', session.user.id)
-        .single();
+        .maybeSingle();
 
       if (profile && profile.role === 'owner') {
         setUser(profile as User);

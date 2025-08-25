@@ -31,7 +31,7 @@ export default function BarberLayout({ children }: BarberLayoutProps) {
         .from('profiles')
         .select('*')
         .eq('id', session.user.id)
-        .single();
+        .maybeSingle();
 
       if (profile && profile.role === 'barber') {
         setUser(profile as User);

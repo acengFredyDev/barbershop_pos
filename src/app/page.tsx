@@ -18,7 +18,7 @@ export default function Home() {
           .from('profiles')
           .select('role')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
         
         if (user) {
           switch (user.role) {

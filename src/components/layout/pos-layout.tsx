@@ -31,7 +31,7 @@ export default function PosLayout({ children }: PosLayoutProps) {
         .from('profiles')
         .select('*')
         .eq('id', session.user.id)
-        .single();
+        .maybeSingle();
 
       if (profile && profile.role === 'cashier') {
         setUser(profile as User);
